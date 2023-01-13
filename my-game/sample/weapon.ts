@@ -2,7 +2,9 @@
 
 import * as flatbuffers from 'flatbuffers';
 
-export class Weapon {
+
+
+export class Weapon implements flatbuffers.IUnpackableObject<WeaponT> {
   bb: flatbuffers.ByteBuffer|null = null;
   bb_pos = 0;
   __init(i:number, bb:flatbuffers.ByteBuffer):Weapon {
@@ -54,5 +56,35 @@ static createWeapon(builder:flatbuffers.Builder, nameOffset:flatbuffers.Offset, 
   Weapon.addName(builder, nameOffset);
   Weapon.addDamage(builder, damage);
   return Weapon.endWeapon(builder);
+}
+
+unpack(): WeaponT {
+  return new WeaponT(
+    this.name(),
+    this.damage()
+  );
+}
+
+
+unpackTo(_o: WeaponT): void {
+  _o.name = this.name();
+  _o.damage = this.damage();
+}
+}
+
+export class WeaponT implements flatbuffers.IGeneratedObject {
+constructor(
+  public name: string|Uint8Array|null = null,
+  public damage: number = 0
+){}
+
+
+pack(builder:flatbuffers.Builder): flatbuffers.Offset {
+  const name = (this.name !== null ? builder.createString(this.name!) : 0);
+
+  return Weapon.createWeapon(builder,
+    name,
+    this.damage
+  );
 }
 }
