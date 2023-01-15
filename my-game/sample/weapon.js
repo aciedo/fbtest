@@ -3,6 +3,9 @@
 exports.__esModule = true;
 exports.WeaponT = exports.Weapon = void 0;
 var flatbuffers = require("flatbuffers");
+/**
+ * A weapon is equipment that can be used for attacking
+ */
 var Weapon = /** @class */ (function () {
     function Weapon() {
         this.bb = null;
@@ -24,6 +27,9 @@ var Weapon = /** @class */ (function () {
         var offset = this.bb.__offset(this.bb_pos, 4);
         return offset ? this.bb.__string(this.bb_pos + offset, optionalEncoding) : null;
     };
+    /**
+     * The damage of the weapon
+     */
     Weapon.prototype.damage = function () {
         var offset = this.bb.__offset(this.bb_pos, 6);
         return offset ? this.bb.readInt16(this.bb_pos + offset) : 0;

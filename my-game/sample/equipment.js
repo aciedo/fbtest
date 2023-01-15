@@ -3,9 +3,15 @@
 exports.__esModule = true;
 exports.unionListToEquipment = exports.unionToEquipment = exports.Equipment = void 0;
 var weapon_js_1 = require("../../my-game/sample/weapon.js");
+/**
+ * Weapons or other equipment
+ */
 var Equipment;
 (function (Equipment) {
     Equipment[Equipment["NONE"] = 0] = "NONE";
+    /**
+     * Equipment of the weapon-type
+     */
     Equipment[Equipment["Weapon"] = 1] = "Weapon";
 })(Equipment = exports.Equipment || (exports.Equipment = {}));
 function unionToEquipment(type, accessor) {

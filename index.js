@@ -100,6 +100,7 @@ var fbOpUs = (end - start) / reps * 1000;
 console.log("us per op: ".concat(Math.round(fbOpUs * 1000) / 1000, " us"));
 console.log("fbOpUs / jsonOpUs: ".concat(Math.round((fbOpUs / jsonOpUs) * 1000) / 1000, "x"));
 console.log("Size improvement: ".concat(Math.round((fbOut.length / jsonOut.length) * 1000) / 1000, "x"));
+// yes, flatbuffers are more code to write than JSON, but this code runs 1.6x faster (even though it's pure JS) and is 70% of the size
 function doFb() {
     var _a, _b, _c, _d, _e, _f, _g;
     // extract the monster from bytes
@@ -138,6 +139,7 @@ function doFb() {
     builder.finish(orc);
     return builder.asUint8Array();
 }
+// JSON is slower even if it's written in C++, but has less code to write
 function doJson() {
     // extract the monster from bytes
     var monster = JSON.parse(jsonStr);

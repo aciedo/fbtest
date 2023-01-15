@@ -4,6 +4,9 @@ import * as flatbuffers from 'flatbuffers';
 
 
 
+/**
+ * Vector in three dimensions
+ */
 export class Vec3 implements flatbuffers.IUnpackableObject<Vec3T> {
   bb: flatbuffers.ByteBuffer|null = null;
   bb_pos = 0;
@@ -13,14 +16,23 @@ export class Vec3 implements flatbuffers.IUnpackableObject<Vec3T> {
   return this;
 }
 
+/**
+ * East-west direction
+ */
 x():number {
   return this.bb!.readFloat32(this.bb_pos);
 }
 
+/**
+ * North-south direction
+ */
 y():number {
   return this.bb!.readFloat32(this.bb_pos + 4);
 }
 
+/**
+ * Up-down direction
+ */
 z():number {
   return this.bb!.readFloat32(this.bb_pos + 8);
 }

@@ -8,6 +8,9 @@ import { Vec3, Vec3T } from '../../my-game/sample/vec3.js';
 import { Weapon, WeaponT } from '../../my-game/sample/weapon.js';
 
 
+/**
+ * An enemy in the game
+ */
 export class Monster implements flatbuffers.IUnpackableObject<MonsterT> {
   bb: flatbuffers.ByteBuffer|null = null;
   bb_pos = 0;
@@ -26,21 +29,33 @@ static getSizePrefixedRootAsMonster(bb:flatbuffers.ByteBuffer, obj?:Monster):Mon
   return (obj || new Monster()).__init(bb.readInt32(bb.position()) + bb.position(), bb);
 }
 
+/**
+ * Position in the world
+ */
 pos(obj?:Vec3):Vec3|null {
   const offset = this.bb!.__offset(this.bb_pos, 4);
   return offset ? (obj || new Vec3()).__init(this.bb_pos + offset, this.bb!) : null;
 }
 
+/**
+ * Amount of mana left
+ */
 mana():number {
   const offset = this.bb!.__offset(this.bb_pos, 6);
   return offset ? this.bb!.readInt16(this.bb_pos + offset) : 150;
 }
 
+/**
+ * Amount of hp left
+ */
 hp():number {
   const offset = this.bb!.__offset(this.bb_pos, 8);
   return offset ? this.bb!.readInt16(this.bb_pos + offset) : 100;
 }
 
+/**
+ * Name of monster
+ */
 name():string|null
 name(optionalEncoding:flatbuffers.Encoding):string|Uint8Array|null
 name(optionalEncoding?:any):string|Uint8Array|null {
@@ -48,6 +63,9 @@ name(optionalEncoding?:any):string|Uint8Array|null {
   return offset ? this.bb!.__string(this.bb_pos + offset, optionalEncoding) : null;
 }
 
+/**
+ * Inventory of monster
+ */
 inventory(index: number):number|null {
   const offset = this.bb!.__offset(this.bb_pos, 14);
   return offset ? this.bb!.readUint8(this.bb!.__vector(this.bb_pos + offset) + index) : 0;
@@ -63,11 +81,17 @@ inventoryArray():Uint8Array|null {
   return offset ? new Uint8Array(this.bb!.bytes().buffer, this.bb!.bytes().byteOffset + this.bb!.__vector(this.bb_pos + offset), this.bb!.__vector_len(this.bb_pos + offset)) : null;
 }
 
+/**
+ * Color of the monster's skin
+ */
 color():Color {
   const offset = this.bb!.__offset(this.bb_pos, 16);
   return offset ? this.bb!.readInt8(this.bb_pos + offset) : Color.Blue;
 }
 
+/**
+ * List of all weapons
+ */
 weapons(index: number, obj?:Weapon):Weapon|null {
   const offset = this.bb!.__offset(this.bb_pos, 18);
   return offset ? (obj || new Weapon()).__init(this.bb!.__indirect(this.bb!.__vector(this.bb_pos + offset) + index * 4), this.bb!) : null;
@@ -83,11 +107,17 @@ equippedType():Equipment {
   return offset ? this.bb!.readUint8(this.bb_pos + offset) : Equipment.NONE;
 }
 
+/**
+ * Currently equiped item
+ */
 equipped<T extends flatbuffers.Table>(obj:any):any|null {
   const offset = this.bb!.__offset(this.bb_pos, 22);
   return offset ? this.bb!.__union(obj, this.bb_pos + offset) : null;
 }
 
+/**
+ * The projected path of the monster
+ */
 path(index: number, obj?:Vec3):Vec3|null {
   const offset = this.bb!.__offset(this.bb_pos, 24);
   return offset ? (obj || new Vec3()).__init(this.bb!.__vector(this.bb_pos + offset) + index * 12, this.bb!) : null;

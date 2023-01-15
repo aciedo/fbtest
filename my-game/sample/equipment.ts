@@ -3,8 +3,15 @@
 import { Weapon, WeaponT } from '../../my-game/sample/weapon.js';
 
 
+/**
+ * Weapons or other equipment
+ */
 export enum Equipment {
   NONE = 0,
+
+  /**
+   * Equipment of the weapon-type
+   */
   Weapon = 1
 }
 

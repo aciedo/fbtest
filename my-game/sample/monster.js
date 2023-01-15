@@ -7,6 +7,9 @@ var color_js_1 = require("../../my-game/sample/color.js");
 var equipment_js_1 = require("../../my-game/sample/equipment.js");
 var vec3_js_1 = require("../../my-game/sample/vec3.js");
 var weapon_js_1 = require("../../my-game/sample/weapon.js");
+/**
+ * An enemy in the game
+ */
 var Monster = /** @class */ (function () {
     function Monster() {
         this.bb = null;
@@ -24,14 +27,23 @@ var Monster = /** @class */ (function () {
         bb.setPosition(bb.position() + flatbuffers.SIZE_PREFIX_LENGTH);
         return (obj || new Monster()).__init(bb.readInt32(bb.position()) + bb.position(), bb);
     };
+    /**
+     * Position in the world
+     */
     Monster.prototype.pos = function (obj) {
         var offset = this.bb.__offset(this.bb_pos, 4);
         return offset ? (obj || new vec3_js_1.Vec3()).__init(this.bb_pos + offset, this.bb) : null;
     };
+    /**
+     * Amount of mana left
+     */
     Monster.prototype.mana = function () {
         var offset = this.bb.__offset(this.bb_pos, 6);
         return offset ? this.bb.readInt16(this.bb_pos + offset) : 150;
     };
+    /**
+     * Amount of hp left
+     */
     Monster.prototype.hp = function () {
         var offset = this.bb.__offset(this.bb_pos, 8);
         return offset ? this.bb.readInt16(this.bb_pos + offset) : 100;
@@ -40,6 +52,9 @@ var Monster = /** @class */ (function () {
         var offset = this.bb.__offset(this.bb_pos, 10);
         return offset ? this.bb.__string(this.bb_pos + offset, optionalEncoding) : null;
     };
+    /**
+     * Inventory of monster
+     */
     Monster.prototype.inventory = function (index) {
         var offset = this.bb.__offset(this.bb_pos, 14);
         return offset ? this.bb.readUint8(this.bb.__vector(this.bb_pos + offset) + index) : 0;
@@ -52,10 +67,16 @@ var Monster = /** @class */ (function () {
         var offset = this.bb.__offset(this.bb_pos, 14);
         return offset ? new Uint8Array(this.bb.bytes().buffer, this.bb.bytes().byteOffset + this.bb.__vector(this.bb_pos + offset), this.bb.__vector_len(this.bb_pos + offset)) : null;
     };
+    /**
+     * Color of the monster's skin
+     */
     Monster.prototype.color = function () {
         var offset = this.bb.__offset(this.bb_pos, 16);
         return offset ? this.bb.readInt8(this.bb_pos + offset) : color_js_1.Color.Blue;
     };
+    /**
+     * List of all weapons
+     */
     Monster.prototype.weapons = function (index, obj) {
         var offset = this.bb.__offset(this.bb_pos, 18);
         return offset ? (obj || new weapon_js_1.Weapon()).__init(this.bb.__indirect(this.bb.__vector(this.bb_pos + offset) + index * 4), this.bb) : null;
@@ -68,10 +89,16 @@ var Monster = /** @class */ (function () {
         var offset = this.bb.__offset(this.bb_pos, 20);
         return offset ? this.bb.readUint8(this.bb_pos + offset) : equipment_js_1.Equipment.NONE;
     };
+    /**
+     * Currently equiped item
+     */
     Monster.prototype.equipped = function (obj) {
         var offset = this.bb.__offset(this.bb_pos, 22);
         return offset ? this.bb.__union(obj, this.bb_pos + offset) : null;
     };
+    /**
+     * The projected path of the monster
+     */
     Monster.prototype.path = function (index, obj) {
         var offset = this.bb.__offset(this.bb_pos, 24);
         return offset ? (obj || new vec3_js_1.Vec3()).__init(this.bb.__vector(this.bb_pos + offset) + index * 12, this.bb) : null;

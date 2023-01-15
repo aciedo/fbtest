@@ -4,6 +4,9 @@ import * as flatbuffers from 'flatbuffers';
 
 
 
+/**
+ * A weapon is equipment that can be used for attacking
+ */
 export class Weapon implements flatbuffers.IUnpackableObject<WeaponT> {
   bb: flatbuffers.ByteBuffer|null = null;
   bb_pos = 0;
@@ -22,6 +25,9 @@ static getSizePrefixedRootAsWeapon(bb:flatbuffers.ByteBuffer, obj?:Weapon):Weapo
   return (obj || new Weapon()).__init(bb.readInt32(bb.position()) + bb.position(), bb);
 }
 
+/**
+ * The name of the weapon
+ */
 name():string|null
 name(optionalEncoding:flatbuffers.Encoding):string|Uint8Array|null
 name(optionalEncoding?:any):string|Uint8Array|null {
@@ -29,6 +35,9 @@ name(optionalEncoding?:any):string|Uint8Array|null {
   return offset ? this.bb!.__string(this.bb_pos + offset, optionalEncoding) : null;
 }
 
+/**
+ * The damage of the weapon
+ */
 damage():number {
   const offset = this.bb!.__offset(this.bb_pos, 6);
   return offset ? this.bb!.readInt16(this.bb_pos + offset) : 0;
