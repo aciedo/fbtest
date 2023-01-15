@@ -92,7 +92,7 @@ function to_b58(buf: Uint8Array) {
 }
 
 const fbOut = doFb();
-console.log(`\n--------- FlatBuffer:`)
+console.log(`\n--------- FlatBuffer`)
 console.log(`Encoded (b58): ${to_b58(fbOut)}`);
 console.log(`Length: ${fbOut.length} bytes`);
 
@@ -105,7 +105,7 @@ const jsonOpUs = (end - start) / reps * 1000;
 console.log(`us per op: ${jsonOpUs} us`);
 
 const jsonOut = doJson();
-console.log(`\n--------- JSON:`)
+console.log(`\n--------- JSON`)
 console.log(`Encoded: ${jsonOut}`);
 console.log(`Length: ${jsonOut.length} bytes`);
 
