@@ -14,6 +14,29 @@ pnpm install
 pnpm bench
 ```
 
+### Benchmarks
+
+```bash
+pnpm bench
+
+> flatc --ts --gen-object-api ../monster.fbs && tsc index.ts && node index.js
+
+Warming up...
+
+--------- FlatBuffer
+Encoded (b58): wYa...XGU
+Length: 192 bytes
+us per op: 3.616 us
+
+--------- JSON
+Encoded: {"pos":...3}]}
+Length: 274 bytes
+us per op: 5.667 us
+
+fbOpUs / jsonOpUs: 1.567x
+Size improvement: 0.701x
+```
+
 ## Rust
 
 Not completed yet. Generated file at `monster_generated.rs`.

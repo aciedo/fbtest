@@ -102,7 +102,7 @@ for (let i = 0; i < reps; i++) {
 }
 let end = performance.now();
 const jsonOpUs = (end - start) / reps * 1000;
-console.log(`us per op: ${jsonOpUs} us`);
+console.log(`us per op: ${Math.round(jsonOpUs * 1000) / 1000} us`);
 
 const jsonOut = doJson();
 console.log(`\n--------- JSON`)
@@ -120,7 +120,7 @@ const fbOpUs = (end - start) / reps * 1000;
 console.log(`us per op: ${Math.round(fbOpUs * 1000) / 1000} us`);
 
 
-console.log(`fbOpUs / jsonOpUs: ${Math.round((fbOpUs / jsonOpUs) * 1000) / 1000}x`);
+console.log(`\nfbOpUs / jsonOpUs: ${Math.round((fbOpUs / jsonOpUs) * 1000) / 1000}x`);
 console.log(`Size improvement: ${Math.round((fbOut.length / jsonOut.length) * 1000) / 1000}x`);
 
 
