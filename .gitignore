@@ -104,3 +104,10 @@ dist
 .tern-port
 
 *.js
+
+# Added by cargo
+
+target
+
+*.bin
+*.json

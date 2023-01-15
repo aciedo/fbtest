@@ -6,14 +6,20 @@ Make sure you have `flatc` installed. You can get pre-built binaries from [here]
 
 ## TypeScript
 
-Main file is `index.ts` which is compiled to `index.js` with `tsc` with `pnpm build`. Run with `node index.js`.
+Main file is `index.ts` which is compiled to `index.js` with `tsc`.
 
 ```bash
+cd typescript
 pnpm install
-pnpm build
-node index.js
+pnpm bench
 ```
 
 ## Rust
 
 Not completed yet. Generated file at `monster_generated.rs`.
+
+```bash
+cd rust
+cargo install planus-cli
+planus rust -o monster_generated.rs ../monster.fbs
+```

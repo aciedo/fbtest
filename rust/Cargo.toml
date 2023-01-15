@@ -1,0 +1,11 @@
+[package]
+name = "planus-example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+planus = { version = "0.3.1", default-features = false }
+serde = { version = "1", default-features = false, features = ["derive", "std"] }
+
+[dev-dependencies]
+serde_json = "1.0.73"
