@@ -11,8 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cli-progress": "^3.11.2",
     "esbuild": "^0.16.17",
-    "flatbuffers": "^23.1.4"
+    "flatbuffers": "^23.1.4",
+    "ora": "^6.1.2",
+    "progress": "^2.0.3",
+    "zstd-codec": "^0.1.4"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
